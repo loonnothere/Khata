@@ -4300,3 +4300,150 @@ table th { letter-spacing: .55px; }
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Responsive repair: Khata Assistant dock */
+.khata-voice-dock {
+  width: 100%;
+  min-width: 0;
+  margin: 16px 0 0;
+  overflow: hidden;
+}
+.khata-voice-dock,
+.khata-voice-dock * {
+  box-sizing: border-box;
+}
+.voice-dock-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+}
+.voice-dock-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 7px;
+  min-width: 0;
+  line-height: 1.4;
+}
+.voice-dock-title b,
+.voice-dock-title small {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.voice-dock-title small {
+  color: #697267;
+  font-size: 12px;
+}
+.voice-dock-input-group {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+.voice-dock-input-group input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 38px;
+  padding: 0 10px;
+}
+.voice-dock-input-group .command-mic-btn,
+.voice-dock-input-group > button {
+  min-height: 36px;
+  white-space: nowrap;
+}
+.khata-voice-dock .command-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.khata-voice-dock .chip-btn {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+
+/* Let the merchant identity breathe instead of being squeezed by navigation. */
+.topbar-inner,
+.topbar-left,
+.topbar-nav {
+  min-width: 0;
+}
+.topbar-left {
+  flex: 1 1 auto;
+}
+.brand-lockup {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+.store-identity-pill {
+  flex: 0 1 245px;
+  min-width: 0;
+  max-width: 300px;
+}
+.store-pill-text {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+.store-pill-text b,
+.store-pill-text small {
+  overflow-wrap: anywhere;
+}
+.topbar-nav {
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+@media (max-width: 940px) {
+  .topbar-left {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    width: 100%;
+  }
+  .brand-lockup {
+    max-width: 100%;
+  }
+  .store-identity-pill {
+    width: 100%;
+    max-width: none;
+    flex: none;
+  }
+  .topbar-nav {
+    width: 100%;
+    max-width: 100%;
+  }
+  .voice-dock-input-group {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .voice-dock-input-group > button:last-child {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .voice-dock-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .voice-dock-input-group {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .voice-dock-input-group .command-mic-btn,
+  .voice-dock-input-group > button {
+    width: 100%;
+    justify-content: center;
+  }
+  .voice-dock-input-group input {
+    min-height: 40px;
+  }
+}
