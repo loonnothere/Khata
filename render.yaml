@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: kiranakhata-live-preview
+    runtime: static
+    branch: feat/dashboard-ux-refresh
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    autoDeployTrigger: checksPass
