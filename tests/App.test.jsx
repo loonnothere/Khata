@@ -81,8 +81,12 @@ describe('KiranaKhata Live UI', () => {
   it('navigates seamlessly across multiple pages: POS Cashier, Khata Ledger, Analytics, Store Rates, and Grahak Passbook', () => {
     render(<App />);
     
+    // The current destination is announced accessibly, not only through colour.
+    expect(screen.getByRole('button', { name: /Home \/ Today \(POS Cashier\)/i })).toHaveAttribute('aria-current', 'page');
+
     // 1. Analytics Page
     fireEvent.click(screen.getByRole('button', { name: /Analytics/i }));
+    expect(screen.getByRole('button', { name: /Analytics/i })).toHaveAttribute('aria-current', 'page');
     expect(screen.getByText('Daily Cash & Khata Analytics')).toBeInTheDocument();
     expect(screen.getByText('GROSS CREDIT EXTENDED')).toBeInTheDocument();
 
