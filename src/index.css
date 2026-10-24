@@ -4447,3 +4447,22 @@ table th { letter-spacing: .55px; }
     min-height: 40px;
   }
 }
+
+/* Extra viewport guard for the dashboard and the top-level assistant card. */
+html, body, #root, .app-shell { width: 100%; max-width: 100%; }
+body { overflow-x: clip; }
+.khata-voice-dock { display: block; max-width: 100%; }
+.voice-dock-title { max-width: 100%; }
+.voice-dock-input-group > * { min-width: 0; }
+@media (min-width: 941px) {
+  .topbar-inner { flex-wrap: wrap; row-gap: 10px; }
+  .topbar-left { flex: 1 1 560px; }
+  .topbar-nav { flex: 0 1 auto; }
+}
+@media (max-width: 760px) {
+  .topbar-inner { align-items: stretch; }
+  .topbar-left { grid-template-columns: minmax(0, 1fr); }
+  .topbar-nav { overflow-x: auto; justify-content: flex-start; }
+  .topbar-nav .nav-tab-btn { flex: 0 0 auto; }
+  .topbar-actions { flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start; }
+}
