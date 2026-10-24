@@ -143,6 +143,15 @@ function formatTimestamp(dateValue) {
   }).format(date);
 }
 
+function localDateKey(dateValue) {
+  const date = dateValue instanceof Date ? dateValue : new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return '';
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
 function dataUrlParts(dataUrl) {
   const [header, data] = dataUrl.split(',');
   return { mimeType: header.match(/data:([^;]+)/)?.[1] || 'image/png', imageBase64: data || '' };
@@ -1609,8 +1618,10 @@ export default function App() {
 
   // Daily Dashboard Summary Metrics
   const todayStats = useMemo(() => {
-    const todayStr = new Date().toISOString().slice(0, 10);
-    const todayEntries = register.filter((e) => String(e.createdAt || '').slice(0, 10) === todayStr);
+    // Use the shop device's local calendar date (typically IST), not UTC.
+    // Otherwise transactions around midnight can appear on the wrong business day.
+    const todayStr = localDateKey(new Date());
+    const todayEntries = register.filter((e) => localDateKey(e.createdAt) === todayStr);
 
     const totalCreditToday = todayEntries.reduce((sum, e) => sum + (Number(e.subtotal) || 0), 0);
     const totalCashToday = todayEntries.reduce((sum, e) => sum + (Number(e.cash_paid_now) || 0), 0);
@@ -2292,6 +2303,7 @@ export default function App() {
               className={`nav-tab-btn ${activePage === 'pos' ? 'active' : ''}`}
               onClick={() => setActivePage('pos')}
               aria-label="Home / Today (POS Cashier)"
+              aria-current={activePage === 'pos' ? 'page' : undefined}
             >
               <ReceiptIndianRupee size={14} />
               <span>Home / Today</span>
@@ -2305,6 +2317,7 @@ export default function App() {
                 setEntryStep(1);
               }}
               aria-label="New Khata Entry"
+              aria-current={activePage === 'entry' ? 'page' : undefined}
             >
               <Plus size={14} />
               <span>New Entry</span>
@@ -2315,6 +2328,7 @@ export default function App() {
               className={`nav-tab-btn ${activePage === 'customers' ? 'active' : ''}`}
               onClick={() => setActivePage('customers')}
               aria-label="Customers (Khata Ledger)"
+              aria-current={activePage === 'customers' ? 'page' : undefined}
             >
               <UsersRound size={14} />
               <span>Customers</span>
@@ -2328,6 +2342,7 @@ export default function App() {
               className={`nav-tab-btn ${activePage === 'analytics' ? 'active' : ''}`}
               onClick={() => setActivePage('analytics')}
               aria-label="Insights & Analytics"
+              aria-current={activePage === 'analytics' ? 'page' : undefined}
             >
               <BarChart3 size={14} />
               <span>Insights</span>
@@ -2338,6 +2353,7 @@ export default function App() {
               className={`nav-tab-btn ${activePage === 'inventory' ? 'active' : ''}`}
               onClick={() => setActivePage('inventory')}
               aria-label="Store Rates & Settings"
+              aria-current={activePage === 'inventory' ? 'page' : undefined}
             >
               <ShoppingBasket size={14} />
               <span>Settings &amp; Rates</span>
@@ -2348,6 +2364,7 @@ export default function App() {
               className={`nav-tab-btn ${activePage === 'grahak' ? 'active' : ''}`}
               onClick={() => setActivePage('grahak')}
               aria-label="Grahak Passbook Portal"
+              aria-current={activePage === 'grahak' ? 'page' : undefined}
             >
               <Smartphone size={14} />
               <span>Grahak Passbook</span>
